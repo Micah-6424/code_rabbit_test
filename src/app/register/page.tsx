@@ -3,6 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+/**
+ * Renders a user registration form and handles account creation.
+ *
+ * Displays input fields for name, email, and password, submits the data to the registration API, and redirects to the login page upon successful registration. Shows an error message if registration fails.
+ */
 export default function Register() {
   const router = useRouter();
   const [error, setError] = useState('');

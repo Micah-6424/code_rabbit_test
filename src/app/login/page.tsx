@@ -3,6 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+/**
+ * Renders a login form for user authentication, handling credential submission, error display, and redirection upon successful login.
+ *
+ * @returns The login form component with input fields for email and password, error messaging, and navigation to registration if needed.
+ */
 export default function Login() {
   const router = useRouter();
   const [error, setError] = useState('');

@@ -14,6 +14,13 @@ interface Post {
   createdAt: string;
 }
 
+/**
+ * Displays the user dashboard with authentication, post creation, and a list of user posts.
+ *
+ * Redirects unauthenticated users to the login page. Allows authenticated users to create new posts and view their existing posts. Shows error messages for failed operations.
+ *
+ * @remark Relies on a `token` stored in `localStorage` for authentication. If the token is missing, the user is redirected to `/login`.
+ */
 export default function Dashboard() {
   const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);

@@ -7,6 +7,13 @@ import { useRouter, usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
+/**
+ * Provides the main layout structure for the application, including a fixed navigation bar and authentication-aware navigation links.
+ *
+ * Renders a navigation bar with links that adapt based on the user's authentication state, and wraps the main content area with consistent styling and spacing.
+ *
+ * @param children - The content to be displayed within the main layout.
+ */
 export default function RootLayout({
   children,
 }: {

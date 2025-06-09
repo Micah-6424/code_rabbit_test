@@ -13,6 +13,11 @@ interface Post {
   createdAt: string;
 }
 
+/**
+ * Renders the community home page with a welcome message, authentication-dependent navigation, and a list of recent posts.
+ *
+ * Displays login and registration options for unauthenticated users, or a dashboard link for authenticated users. Shows recent posts in a grid layout, and if no posts exist, provides a call-to-action for authenticated users to create their first post.
+ */
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);

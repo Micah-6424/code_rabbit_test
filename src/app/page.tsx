@@ -13,6 +13,11 @@ interface Post {
   createdAt: string;
 }
 
+/**
+ * Renders the community home page with a welcome message, authentication-dependent navigation, and a list of recent posts.
+ *
+ * Displays login and registration options for unauthenticated users, or a dashboard link for authenticated users. Shows recent posts in a grid layout, and if no posts exist, provides a call-to-action for authenticated users to create their first post.
+ */
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,55 +39,114 @@ export default function Home() {
   }
 
   return (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold">Welcome to Community Forms</h1>
-        <p className="text-xl text-gray-600 mt-4">
-          Join our community to share your thoughts and connect with others.
+    <div className="max-w-5xl mx-auto">
+      <div className="text-center mb-16">
+        <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">
+          Welcome to Community Forms
+        </h1>
+        <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+          Join our community to share your thoughts and connect with others in a modern,
+          engaging environment.
         </p>
         {!isAuthenticated && (
-          <div className="mt-8">
+          <div className="flex justify-center gap-4">
             <a
               href="/login"
-              className="inline-block bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 mr-4"
+              className="px-6 py-3 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-sm"
             >
               Login
             </a>
             <a
               href="/register"
-              className="inline-block bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600"
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:opacity-90 transition-all shadow-sm"
             >
-              Register
+              Register Now
             </a>
           </div>
         )}
         {isAuthenticated && (
-          <div className="mt-8">
-            <a
-              href="/dashboard"
-              className="inline-block bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
-            >
-              Go to Dashboard
-            </a>
-          </div>
+          <a
+            href="/dashboard"
+            className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:opacity-90 transition-all shadow-sm"
+          >
+            Go to Dashboard
+          </a>
         )}
       </div>
 
-      <div className="max-w-4xl mx-auto mt-12">
-        <h2 className="text-2xl font-semibold mb-6">Recent Posts</h2>
-        <div className="space-y-6">
+      <div className="space-y-6">
+        <h2 className="text-3xl font-bold mb-8 text-center">Recent Posts</h2>
+        <div className="grid gap-6 md:grid-cols-2">
           {posts.map((post) => (
-            <div key={post.id} className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-              <p className="text-gray-600 mb-4">{post.content}</p>
-              <div className="text-sm text-gray-500">
-                Posted by {post.author.name} on{' '}
-                {new Date(post.createdAt).toLocaleDateString()}
+            <div
+              key={post.id}
+              className="card p-6 bg-white dark:bg-gray-800 fade-in"
+            >
+              <h3 className="text-xl font-semibold mb-3">{post.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">{post.content}</p>
+              <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                <span className="flex items-center">
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                  {post.author.name}
+                </span>
+                <span className="flex items-center">
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  {new Date(post.createdAt).toLocaleDateString()}
+                </span>
               </div>
             </div>
           ))}
           {posts.length === 0 && (
-            <p className="text-center text-gray-600">No posts yet. Be the first to share!</p>
+            <div className="col-span-2 text-center py-12">
+              <div className="text-gray-500 dark:text-gray-400 mb-4">
+                <svg
+                  className="w-16 h-16 mx-auto mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  />
+                </svg>
+                <p className="text-xl">No posts yet. Be the first to share!</p>
+              </div>
+              {isAuthenticated && (
+                <a
+                  href="/dashboard"
+                  className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:opacity-90 transition-all shadow-sm"
+                >
+                  Create Your First Post
+                </a>
+              )}
+            </div>
           )}
         </div>
       </div>
